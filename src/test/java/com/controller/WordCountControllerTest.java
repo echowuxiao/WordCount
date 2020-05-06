@@ -34,12 +34,12 @@ public class WordCountControllerTest {
     @Test
     public void testSearchWordCount() throws Exception {
           	
-    	String output=mvc.perform(MockMvcRequestBuilders.get("/counter-api/search").header("Authorization", "Basic b3B0dXM6Y2FuZGlkYXRlcw==")
+    	String output=mvc.perform(MockMvcRequestBuilders.post("/counter-api/search").header("Authorization", "Basic b3B0dXM6Y2FuZGlkYXRlcw==")
     			.content("{\"searchText\":[\"Duis\", \"Sed\", \"Donec\", \"Augue\", \"Pellentesque\", \"123\"]}")
     			.contentType("application/json").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
     
-    	assertEquals("{\"counts\":[{\"Duis\":11},{\"Sed\":4},{\"Donec\":8},{\"Augue\":0},{\"Pellentesque\":5},{\"123\":0}]}",output);
+    	assertEquals("{\"counts\":[{\"Duis\":11},{\"Sed\":16},{\"Donec\":8},{\"Augue\":7},{\"Pellentesque\":6},{\"123\":0}]}",output);
 
     }
     
@@ -54,10 +54,10 @@ public class WordCountControllerTest {
     			.header("Accept", "text/csv"))
             .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
     	
-    assertEquals("vel|17\n" + 
-		    		"eget|17\n"+
-		    		"et|14\n" + 
-		    		"eu|13\n" + 
-		    		"id|12\n", output);
+    assertEquals("vel|17\n" +
+            "eget|17\n" +
+            "sed|16\n" +
+            "in|15\n" +
+            "et|14\n" , output);
     }
 }
